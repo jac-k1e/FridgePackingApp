@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Refrigerator Packing Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Refrigerator Packing Calculator</h1>
+
+  <div class="formulas">
+    <h3>📐 Carton Dimension Formulas</h3>
+    <p><strong>Proposed Carton Width:</strong><br>
+      Unit Width + 2 × Side Protection + 2 × Carton Thickness + 2 × Box Throw Clearance + 2 × EPS Variation
+    </p>
+    <p><strong>Proposed Carton Depth:</strong><br>
+      Unit Depth + Front Protection + Back Protection + 2 × Carton Thickness + 2 × Box Throw Clearance + 2 × EPS Variation
+    </p>
+  </div>
+
+  <form id="calcForm">
+    <label>Unit Width: <input type="number" id="unitWidth" value="35" step="0.0001" required></label>
+    <label>Unit Depth: <input type="number" id="unitDepth" value="30" step="0.0001" required></label>
+    <label>Side Pack Thickness: <input type="number" id="sidePack" value="1.5" step="0.0001" required></label>
+    <label>Front Pack Thickness: <input type="number" id="frontPack" value="2" step="0.0001" required></label>
+    <label>Rear Pack Thickness: <input type="number" id="rearPack" value="2" step="0.0001" required></label>
+    <label>Box Thickness: <input type="number" id="boxThickness" value="0.5" step="0.0001" required></label>
+    <label>EPS Variation: <input type="number" id="epsVar" value="0.25" step="0.0001" required></label>
+    <label>Box Throw Clearance: <input type="number" id="boxClear" value="1" step="0.0001" required></label>
+    <button type="submit">Calculate Railcar & Trailer</button>
+  </form>
+
+  <button type="button" id="rotateButton">Rotate Units 90° (Railcar)</button>
+  <button type="button" id="trailerButton">Calculate Trailer Layout</button>
+
+  <p id="result"></p>
+  <canvas id="layoutCanvas" width="800" height="250"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>
