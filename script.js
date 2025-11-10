@@ -1,4 +1,3 @@
-
 function getInputs() {
   return {
     unitWidth: parseFloat(document.getElementById('unitWidth').value),
