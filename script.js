@@ -1,3 +1,4 @@
+
 function getInputs() {
   return {
     unitWidth: parseFloat(document.getElementById('unitWidth').value),
@@ -46,14 +47,19 @@ document.getElementById('calcForm').onsubmit = function (e) {
   const inputs = getInputs();
   const { width, depth } = calculateBoxDimensions(inputs);
 
-  const railFit = 3 * width <= 114;
-  const trailerFit = 2 * width <= 101.5;
-  const totalRailWidth = (3 * width).toFixed(4);
-  const totalTrailerWidth = (2 * width).toFixed(4);
+  const railTotalWidth = 3 * width;
+  const railFit = railTotalWidth <= 114;
+  const railClearance = (114 - railTotalWidth).toFixed(4);
+  const totalRailWidth = railTotalWidth.toFixed(4);
+
+  const trailerTotalWidth = 2 * width;
+  const trailerFit = trailerTotalWidth <= 101.5;
+  const trailerClearance = (101.5 - trailerTotalWidth).toFixed(4);
+  const totalTrailerWidth = trailerTotalWidth.toFixed(4);
 
   let result = `📦 Carton Width: ${width.toFixed(4)}", Depth: ${depth.toFixed(4)}"\n`;
-  result += `🚂 Railcar 3-wide: ${railFit ? "✅ Fits" : "❌ Does not fit"} — Total width: ${totalRailWidth}"\n`;
-  result += `🚛 Trailer 2-wide: ${trailerFit ? "✅ Fits" : "❌ Does not fit"} — Total width: ${totalTrailerWidth}"`;
+  result += `🚂 Railcar 3-wide: ${railFit ? "✅ Fits" : "❌ Does not fit"} — Total width: ${totalRailWidth}" — Clearance: ${railClearance}"\n`;
+  result += `🚛 Trailer 2-wide: ${trailerFit ? "✅ Fits" : "❌ Does not fit"} — Total width: ${totalTrailerWidth}" — Clearance: ${trailerClearance}"`;
   document.getElementById('result').textContent = result;
 
   drawLayout(114, width, depth, 3, "side", "Railcar (3-wide)");
@@ -62,11 +68,14 @@ document.getElementById('calcForm').onsubmit = function (e) {
 document.getElementById('rotateButton').onclick = function () {
   const inputs = getInputs();
   const { width, depth } = calculateBoxDimensions(inputs);
-  const railFit = 3 * depth <= 114;
-  const totalRotatedDepth = (3 * depth).toFixed(4);
+
+  const railRotatedTotal = 3 * depth;
+  const railFit = railRotatedTotal <= 114;
+  const railClearance = (114 - railRotatedTotal).toFixed(4);
+  const totalRotatedDepth = railRotatedTotal.toFixed(4);
 
   let result = `🔄 Rotated Layout — Box Depth: ${depth.toFixed(4)}", Width: ${width.toFixed(4)}"\n`;
-  result += `🚂 Railcar front-to-back: ${railFit ? "✅ Fits" : "❌ Does not fit"} — Total depth: ${totalRotatedDepth}"`;
+  result += `🚂 Railcar front-to-back: ${railFit ? "✅ Fits" : "❌ Does not fit"} — Total depth: ${totalRotatedDepth}" — Clearance: ${railClearance}"`;
   document.getElementById('result').textContent = result;
 
   drawLayout(114, width, depth, 3, "rotated", "Railcar (Rotated)");
@@ -75,11 +84,14 @@ document.getElementById('rotateButton').onclick = function () {
 document.getElementById('trailerButton').onclick = function () {
   const inputs = getInputs();
   const { width, depth } = calculateBoxDimensions(inputs);
-  const trailerFit = 2 * width <= 101.5;
-  const totalTrailerWidth = (2 * width).toFixed(4);
+
+  const trailerTotalWidth = 2 * width;
+  const trailerFit = trailerTotalWidth <= 101.5;
+  const trailerClearance = (101.5 - trailerTotalWidth).toFixed(4);
+  const totalTrailerWidth = trailerTotalWidth.toFixed(4);
 
   let result = `🚛 Trailer Layout — Box Width: ${width.toFixed(4)}", Depth: ${depth.toFixed(4)}"\n`;
-  result += `2-wide in 101.5" trailer: ${trailerFit ? "✅ Fits" : "❌ Does not fit"} — Total width: ${totalTrailerWidth}"`;
+  result += `2-wide in 101.5" trailer: ${trailerFit ? "✅ Fits" : "❌ Does not fit"} — Total width: ${totalTrailerWidth}" — Clearance: ${trailerClearance}"`;
   document.getElementById('result').textContent = result;
 
   drawLayout(101.5, width, depth, 2, "side", "Trailer (2-wide)");
